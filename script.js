@@ -5,39 +5,27 @@ for (var i = 1; i < 60; i++) {
   clockEl.innerHTML += "<div class='diallines'></div>";
   dialLines[i].style.transform = "rotate(" + 6 * i + "deg)";
 }
+var offset = -4;
+
 
 function clock() {
-    
-function checkTime(i) {
-  if (i < 10) {
-    i = "0" + i
-  };
-  return i;
-}
 
-  offset = -4;  /// BOSTON UTC OFFSET
 
-  var weekday = new Array(7),
-      d = new Date(),
-      h = d.getUTCHours(),
-      m = d.getUTCMinutes(),
-      s = d.getUTCSeconds(),
+  var weekday = new Array(7);
+  d = new Date();
+  utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+  nd = new Date(utc + (3600000 * offset));  
+  
+  h = nd.getHours();  
+  m = nd.getMinutes();
+  s = nd.getSeconds();
+            
       
-      h = h + offset;
-      if (h > 24) {
-      h = h - 24;
-      }
-      if (h < 0) {
-      h = h + 24;
-      }      
-  h = checkTime(h);
-  m = checkTime(m);
-  s = checkTime(s);      
-      var ampm = h >= 12 ? 'pm' : 'am';
+  var ampm = h >= 12 ? 'pm' : 'am';
       
-      date = d.getDate(),
-      month = d.getMonth() + 1,
-      year = d.getFullYear(),
+      date = nd.getDate(),
+      month = nd.getMonth() + 1,
+      year = nd.getFullYear(),
            
       hDeg = h * 30 + m * (360/720),
       mDeg = m * 6 + s * (360/3600),
@@ -58,7 +46,7 @@ function checkTime(i) {
       weekday[5] = "Friday";
       weekday[6] = "Saturday";
   
-      var day = weekday[d.getDay()];
+      var day = weekday[nd.getDay()];
   
   if(month < 9) {
     month = "0" + month;
