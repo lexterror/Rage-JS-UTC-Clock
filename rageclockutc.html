@@ -157,7 +157,7 @@ a {
    ><link rel="stylesheet" href="style.css">
 
 </head>
-  <body>
+  <body onload="defaulttag();">
 
 
 <div id="weather" style="cursor:pointer;" onclick="checkitout();myoffset();switchUTC();">
@@ -165,8 +165,13 @@ a {
 <div class="clock" style="float:center;z-index:-1 !important;">
 <div class="tree_of_life">
     <div class="branded brand" id="mybrand">
-    New York
     </div>
+<script>
+function defaulttag() {
+    var ff = document.getElementById("UTC");
+    document.getElementById("mybrand").innerHTML = ff.options[ff.selectedIndex].text;
+}
+</script>
     <div class="info date"></div>
       <div class="info2 phase"><img id="phase" src=""></div>
     <div class="info3 astrology"><span id="sign"></span></div>
@@ -225,14 +230,16 @@ for (var i = 1; i < 60; i++) {
   clockEl.innerHTML += "<div class='diallines'></div>";
   dialLines[i].style.transform = "rotate(" + 6 * i + "deg)";
 }
-var offset = -4;
+var goffset = 1;
+var e = document.getElementById("UTC");
+var offset = parseInt((e.options[e.selectedIndex].value)) + goffset;
 
 function myoffset() {
  
     if (document.getElementById('dst').checked) {
-    offset = -4;
+    goffset = 1;
     }
-    else { offset = -5; } 
+    else { goffset = 0; } 
 }
 myoffset();
 
@@ -304,9 +311,9 @@ function clock() {
 setInterval("clock()", 1000);
 
 
-var goffset = 0;
+
 function switchUTC() {
-    var e = document.getElementById("UTC");
+    e = document.getElementById("UTC");
     if (document.getElementById('dst').checked) {
     goffset = 1;
     }
