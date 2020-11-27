@@ -1,0 +1,592 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+#weather {
+    width: 334px;
+    height: 334px;
+    margin-top: 32px;
+    margin-right: 32px;
+    float: center;
+    margin: 0 auto;
+}
+body {
+    width: 100%;
+    margin: 0 auto;
+    position: fixed;
+    overflow: hidden;
+  background: #000;
+}
+
+#weatherfooter {
+    width: 100%;
+    height: 200px;
+    margin: 0 auto;
+    bottom: 0 !important;
+    position: fixed;
+}
+
+#weathercenter {
+    width: 550px;
+    margin: 0 auto;
+}
+
+.clock {
+
+}
+
+#mainframe {
+
+    width: 550px;
+    margin: 0 auto;
+}
+
+.framewrap {
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-bottom: 33px;
+  background-color: #277099;
+  width: 550px;
+  height: 300px;
+  -webkit-box-shadow: 2px 2px 16px -2px;
+  box-shadow: 2px 2px 16px -2px;
+  opacity: 0.6;
+}
+
+.framewrap span {
+
+  color: #FFFFFF;
+  font-size: small;
+  font-style: normal;
+  font-weight: 100;
+}
+
+/*
+.framewrap .actionIcon { 
+
+  display: inline-block;
+  float: right;
+  height: 18px;
+  width: 18px;
+  background-image: url(maximize_window.png);
+  background-size: cover;
+  background-position: center center;
+}
+
+.framewrap.min {  
+
+  height: 90% !important;
+  width: 100% !important;
+  left: 0px !important;
+  bottom: 0px !important;
+  right: 0px !important;
+  position: absolute;
+
+  
+}
+
+.framewrap.min .actionIcon {
+
+  position: relative;
+  background-image: url(minimize_window.png);
+}*/
+
+.frame {
+
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+
+} 
+
+#app {
+    opacity: 0.9;
+    float: right;
+    right: 0;
+    position: fixed;
+}
+
+#webamp {
+    opacity: 0.9;
+}
+
+#launch {
+    width: 100%;
+    height: 32px;
+    top: 0;
+    color: #eee;
+    text-align: center;
+    font-size: 16px;
+    line-height: 16px;
+    font-family: tabular;
+    margin: 0 auto;
+}
+
+a {
+    color: #eee;
+}
+@font-face {
+  font-family: 'tabular';
+  src: url('fonts/Tabular-Regular.eot'); /* IE9 Compat Modes */
+  src: url('fonts/Tabular-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('fonts/Tabular-Regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('fonts/Tabular-Regular.woff') format('woff'), /* Pretty Modern Browsers */
+       url('fonts/Tabular-Regular.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('fonts/Tabular-Regular.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+@font-face {
+  font-family: 'astro';
+  src: url('fonts/AstroDotBasic.eot'); /* IE9 Compat Modes */
+  src: url('fonts/AstroDotBasic.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('fonts/AstroDotBasic.woff2') format('woff2'), /* Super Modern Browsers */
+       url('fonts/AstroDotBasic.woff') format('woff'), /* Pretty Modern Browsers */
+       url('fonts/AstroDotBasic.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('fonts/AstroDotBasic.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+@font-face {
+  font-family: 'blings';
+  src: url('fonts/RoadRage.eot'); /* IE9 Compat Modes */
+  src: url('fonts/RoadRage.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('fonts/RoadRage.woff2') format('woff2'), /* Super Modern Browsers */
+       url('fonts/RoadRage.woff') format('woff'), /* Pretty Modern Browsers */
+       url('fonts/RoadRage.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('fonts/RoadRage.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+</style>
+
+   ><link rel="stylesheet" href="style.css">
+
+</head>
+  <body>
+
+
+<div id="weather" style="cursor:pointer;" onclick="checkitout();myoffset();switchUTC();">
+<div class="clockrim">
+<div class="clock" style="float:center;z-index:-1 !important;">
+<div class="tree_of_life">
+    <div class="branded brand" id="mybrand">
+    New York
+    </div>
+    <div class="info date"></div>
+      <div class="info2 phase"><img id="phase" src=""></div>
+    <div class="info3 astrology"><span id="sign"></span></div>
+    <div class="info day"></div>
+    <div class="daily ampm"></div>
+  </div>
+  <div class="dotrim"><div class="dot"><div class="dotred"></div></div></div>
+  <div>
+    <div class="hour-hand"></div>
+    <div class="minute-hand"></div>
+    <div class="second-hand"></div>
+  </div>
+  <div>
+    <span class="h3">3</span>
+    <span class="h6">6</span>
+    <span class="h9">9</span>
+    <span class="h12">12</span>
+  </div>
+  <div class="diallines"></div>
+</div></div>
+
+<div id="centeroptions" style="width: 150px;margin: 0 auto;">
+<select id="UTC" onchange="switchUTC();" style="width: 150px; margin: 0 auto;text-align: center;float:center;background:#111;color:#aaa">
+  <option value="-11">Samoa</option>
+  <option value="-10">Hawaii </option>
+  <option value="-9">Juneau </option>
+  <option value="-8">San Francisco </option>
+  <option value="-7">Denver </option>
+  <option value="-6">Chicago</option>
+  <option value="-5" selected>New York </option>
+  <option value="-4">Caracas </option>
+  <option value="-3">Rio De Janeiro </option>
+  <option value="-2">Recife </option>
+  <option value="-1">Azores </option>
+  <option value="0">London </option>
+  <option value="1">Paris </option>
+  <option value="2">Cairo </option>
+  <option value="3">Moscow </option>
+  <option value="4">Baku </option>
+  <option value="5">Karachi </option>
+  <option value="6">Dacca </option>
+  <option value="7">Bangkok </option>
+  <option value="8">Hong Kong </option>
+  <option value="9">Tokyo </option>
+  <option value="10">Syndey </option>
+  <option value="11">Numea </option>
+  <option value="12">Wellington </option>
+</select><input type="checkbox" id="dst" name="dst"
+         checked onchange="" style="display:none;">
+</div>
+<script>
+var dialLines = document.getElementsByClassName('diallines');
+var clockEl = document.getElementsByClassName('clock')[0];
+
+for (var i = 1; i < 60; i++) {
+  clockEl.innerHTML += "<div class='diallines'></div>";
+  dialLines[i].style.transform = "rotate(" + 6 * i + "deg)";
+}
+var offset = -4;
+
+function myoffset() {
+ 
+    if (document.getElementById('dst').checked) {
+    offset = -4;
+    }
+    else { offset = -5; } 
+}
+myoffset();
+
+var boolf = 0;
+
+function checkitout() {
+if (boolf % 2 == 0)
+{
+    document.getElementById('dst').checked = false;
+}
+if (boolf % 2 != 0)
+{
+    document.getElementById('dst').checked = true;
+}
+boolf++;
+}
+function clock() {
+ 
+ 
+ var weekday = new Array(7);
+  d = new Date();
+  utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+  nd = new Date(utc + (3600000 * offset));  
+  
+  h = nd.getHours();  
+  m = nd.getMinutes();
+  s = nd.getSeconds();
+            
+      
+  var ampm = h >= 12 ? 'pm' : 'am';
+      
+      date = nd.getDate(),
+      month = nd.getMonth() + 1,
+      year = nd.getFullYear(),
+           
+      hDeg = h * 30 + m * (360/720),
+      mDeg = m * 6 + s * (360/3600),
+      sDeg = s * 6,
+      
+      hEl = document.querySelector('.hour-hand'),
+      mEl = document.querySelector('.minute-hand'),
+      sEl = document.querySelector('.second-hand'),
+      dateEl = document.querySelector('.date'),
+      dayEl = document.querySelector('.day');
+      theampm = document.querySelector('.ampm'),
+
+      weekday[0] = "Sunday";
+      weekday[1] = "Monday";
+      weekday[2] = "Tuesday";
+      weekday[3] = "Wednesday";
+      weekday[4] = "Thursday";
+      weekday[5] = "Friday";
+      weekday[6] = "Saturday";
+  
+      var day = weekday[nd.getDay()];
+  
+  if(month < 9) {
+    month = "0" + month;
+  }
+  
+  hEl.style.transform = "rotate("+hDeg+"deg)";
+  mEl.style.transform = "rotate("+mDeg+"deg)";
+  sEl.style.transform = "rotate("+sDeg+"deg)";
+  dateEl.innerHTML = date+"/"+month+"/"+year;
+  dayEl.innerHTML = day;
+  theampm.innerHTML = ampm;
+}
+
+setInterval("clock()", 1000);
+
+
+var goffset = 0;
+function switchUTC() {
+    var e = document.getElementById("UTC");
+    if (document.getElementById('dst').checked) {
+    goffset = 1;
+    }
+    else { goffset = 0; }
+   
+    offset = parseInt((e.options[e.selectedIndex].value)) + goffset;
+    var f = document.getElementById("UTC");
+    document.getElementById("mybrand").innerHTML = f.options[e.selectedIndex].text;
+    
+
+}
+</script>
+<!-- partial -->
+  <script src="suncalc.js"></script>
+  <script>
+/*********************** MOONPHASE ************************/
+setTimeout(
+function getmoonphase() {
+
+            var phase = SunCalc.getMoonIllumination(new Date()).phase;
+     if (phase > 0 && phase < 0.032)
+			{
+                document.getElementById("phase").src = "moonphases/0.png";			
+			}
+			if (phase > 0.032 && phase < 0.064)
+			{
+                document.getElementById("phase").src = "moonphases/1.png";		
+			}
+			if (phase > 0.064 && phase < 0.096)
+			{
+                document.getElementById("phase").src = "moonphases/2.png";		
+			}
+			if (phase > 0.096 && phase < 0.128)
+			{
+                document.getElementById("phase").src = "moonphases/3.png";		
+			}
+			if (phase > 0.128 && phase < 0.160)
+			{
+                document.getElementById("phase").src = "moonphases/4.png";			
+			}			
+			if (phase > 0.160 && phase < 0.192)
+			{
+                document.getElementById("phase").src = "moonphases/5.png";
+			}
+			if (phase > 0.192 && phase < 0.224)
+			{
+                document.getElementById("phase").src = "moonphases/6.png";		
+			}
+			if (phase > 0.224 && phase < 0.256)
+			{
+                document.getElementById("phase").src = "moonphases/7.png";		
+			} 
+			if (phase > 0.256 && phase < 0.288)
+			{
+                document.getElementById("phase").src = "moonphases/8.png";		
+			} 
+			if (phase > 0.288 && phase < 0.320)
+			{
+                document.getElementById("phase").src = "moonphases/9.png";		
+			} 
+			if (phase > 0.320 && phase < 0.352)
+			{
+                document.getElementById("phase").src = "moonphases/10.png";		
+			} 
+			if (phase > 0.352 && phase < 0.384)
+			{
+                document.getElementById("phase").src = "moonphases/11.png";		
+			} 
+			if (phase > 0.384 && phase < 0.416)
+			{
+                document.getElementById("phase").src = "moonphases/12.png";		
+			} 
+			if (phase > 0.416 && phase < 0.448)
+			{
+                document.getElementById("phase").src = "moonphases/13.png";		
+			} 
+			if (phase > 0.448 && phase < 0.480)
+			{
+                document.getElementById("phase").src = "moonphases/14.png";		
+			} 
+			if (phase > 0.480 && phase < 0.5)
+			{
+                document.getElementById("phase").src = "moonphases/15.png";		
+			} 
+			if (phase > 0.5 && phase < 0.532)
+			{
+                document.getElementById("phase").src = "moonphases/16.png";		
+			} 
+			if (phase > 0.532 && phase < 0.564)
+			{
+                document.getElementById("phase").src = "moonphases/17.png";		
+			} 
+			if (phase > 0.564 && phase < 0.596)
+			{
+                document.getElementById("phase").src = "moonphases/18.png";		
+			} 
+			if (phase > 0.596 && phase < 0.628)
+			{
+                document.getElementById("phase").src = "moonphases/19.png";		
+			}
+			if (phase > 0.628 && phase < 0.660)
+			{
+                document.getElementById("phase").src = "moonphases/20.png";		
+			} 
+			if (phase > 0.660 && phase < 0.692)
+			{
+                document.getElementById("phase").src = "moonphases/21.png";		
+			} 
+            if (phase > 0.692 && phase < 0.724)
+			{
+                document.getElementById("phase").src = "moonphases/22.png";		
+			} 
+			if (phase > 0.724 && phase < 0.756)
+			{
+                document.getElementById("phase").src = "moonphases/23.png";		
+			} 			
+			if (phase > 0.756 && phase < 0.788)
+			{
+                document.getElementById("phase").src = "moonphases/24.png";		
+			}
+            if (phase > 0.788 && phase < 0.810)
+			{
+                document.getElementById("phase").src = "moonphases/25.png";		
+			} 
+			if (phase > 0.810 && phase < 0.842)
+			{
+                document.getElementById("phase").src = "moonphases/26.png";		
+			} 			
+			if (phase > 0.842 && phase < 0.876)
+			{
+                document.getElementById("phase").src = "moonphases/27.png";		
+			} 
+			if (phase > 0.876 && phase < 0.908)
+			{
+                document.getElementById("phase").src = "moonphases/28.png";		
+			} 
+			if (phase > 0.908 && phase < 0.940)
+			{
+                document.getElementById("phase").src = "moonphases/29.png";		
+			} 			
+			if (phase > 0.940 && phase < 0.972)
+			{
+                document.getElementById("phase").src = "moonphases/30.png";		
+			} 
+            if (phase > 0.972 && phase < 1)
+			{
+                document.getElementById("phase").src = "moonphases/31.png";		
+			} 
+}, 5000);
+</script>
+</div>
+    <script src="rainyday.min.js"></script>
+    <script src="site.js"></script>
+    <script>
+    function myFunction() {
+    document.getElementById("app").style.zIndex = "-1";
+    document.getElementById("framewrap").style.zIndex = "8888";
+    }
+    function myFunction2() {
+    document.getElementById("app").style.zIndex = "8";
+    document.getElementById("framewrap").style.zIndex = "-1";  
+    }
+    </script>
+
+<script>
+$(function() {
+  "use strict";
+  $(".framewrap").resizable().draggable();
+  $(".framewrap .actionIcon").on("click", function() {
+    $(this).closest(".framewrap").toggleClass("min");
+  });
+});
+</script>
+
+<script>
+// Make the DIV element draggable:
+dragElement(document.getElementById("iframebox"));
+
+function dragElement(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  if (document.getElementById(elmnt.id + "header")) {
+    // if present, the header is where you move the DIV from:
+    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+  } else {
+    // otherwise, move the DIV from anywhere inside the DIV:
+    elmnt.onmousedown = dragMouseDown;
+  }
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    // stop moving when mouse button is released:
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+</script>
+<script>
+
+
+
+
+
+setTimeout(
+function getZodiacSign_() {
+
+ var d = new Date();
+ var month = (d.getMonth() + 1);
+ var day = d.getDate();
+ var sign = getZodiacSign(day, month);
+ document.getElementById("sign").innerHTML = sign; 
+
+ }, 5000); 
+ 
+ function getZodiacSign(day, month) {
+
+    var zodiacSigns = {
+    'capricorn':'j',
+    'aquarius':'k',
+    'pisces':'l',
+    'aries':'a',
+    'taurus':'b',
+    'gemini':'c',
+    'cancer':'d',
+    'leo':'e',
+    'virgo':'f',
+    'libra':'g',
+    'scorpio':'h',
+    'sagittarius':'i'
+  }
+
+  if((month == 1 && day <= 20) || (month == 12 && day >=22)) {
+    return zodiacSigns.capricorn;
+  } else if ((month == 1 && day >= 21) || (month == 2 && day <= 18)) {
+    return zodiacSigns.aquarius;
+  } else if((month == 2 && day >= 19) || (month == 3 && day <= 20)) {
+    return zodiacSigns.pisces;
+  } else if((month == 3 && day >= 21) || (month == 4 && day <= 20)) {
+    return zodiacSigns.aries;
+  } else if((month == 4 && day >= 21) || (month == 5 && day <= 20)) {
+    return zodiacSigns.taurus;
+  } else if((month == 5 && day >= 21) || (month == 6 && day <= 20)) {
+    return zodiacSigns.gemini;
+  } else if((month == 6 && day >= 22) || (month == 7 && day <= 22)) {
+    return zodiacSigns.cancer;
+  } else if((month == 7 && day >= 23) || (month == 8 && day <= 23)) {
+    return zodiacSigns.leo;
+  } else if((month == 8 && day >= 24) || (month == 9 && day <= 23)) {
+    return zodiacSigns.virgo;
+  } else if((month == 9 && day >= 24) || (month == 10 && day <= 23)) {
+    return zodiacSigns.libra;
+  } else if((month == 10 && day >= 24) || (month == 11 && day <= 22)) {
+    return zodiacSigns.scorpio;
+  } else if((month == 11 && day >= 23) || (month == 12 && day <= 21)) {
+    return zodiacSigns.sagittarius;
+  
+ }
+ }
+</script>
+</body>
+</html>
