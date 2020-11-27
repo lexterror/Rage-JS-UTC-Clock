@@ -11,6 +11,6 @@ to either 1 or 0 ("rageclockutc.html")
 
 To change default city change the following line in the file "rageclockutc.html"
 
-<option value="-5" selected>New York </option>  
+option value="-5" selected New York option  
 
 Remove the word "selected" and paste it to any other city.
